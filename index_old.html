@@ -597,7 +597,7 @@
             }
             
             async function callGeminiAPI(prompt) {
-                const apiKey = "AIzaSyDNdLLgXjIfjEMU9qc2jPAdXhXqAsoS3jU"; 
+                const apiKey = ""; // TODO: Implement backend proxy and remove/replace this. Key removed for security.
                 const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
                 const payload = { contents: [{ role: "user", parts: [{ text: prompt }] }] };
 
