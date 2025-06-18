@@ -9,83 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Nanum+Gothic:wght@400;700;800&family=SUIT:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'SUIT', 'Inter', sans-serif;
-            background-color: #f8fafc; /* bg-slate-50 */
-        }
-        .section {
-            display: none;
-            animation: fadeIn 0.8s;
-        }
-        .section.active {
-            display: block;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .nav-link {
-            transition: color 0.3s, border-bottom-color 0.3s;
-        }
-        .nav-link.active {
-            color: #1e40af; /* text-blue-800 */
-            border-bottom-color: #1e40af;
-        }
-        .chart-container {
-            position: relative;
-            width: 100%;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-            height: 250px; 
-            max-height: 300px;
-        }
-        @media (min-width: 768px) {
-            .chart-container { 
-                height: 350px;
-                max-height: 400px;
-             } 
-        }
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            top: 1rem;
-            left: -0.6rem;
-            width: 1.2rem;
-            height: 1.2rem;
-            background-color: #1e3a8a; /* bg-blue-900 */
-            border-radius: 9999px;
-            border: 4px solid #f8fafc;
-        }
-        .modal {
-            transition: opacity 0.3s ease;
-        }
-        .spinner {
-            border-top-color: #3b82f6;
-            animation: spin 1s linear infinite;
-        }
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        .burgundy-btn {
-            background-color: #800020;
-        }
-        .burgundy-btn:hover {
-            background-color: #66001a;
-        }
-        .bg-pattern {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image:
-                radial-gradient(circle at center, rgba(0,0,0,0.04) 1px, transparent 1px);
-            background-size: 2rem 2rem;
-            mask-image: linear-gradient(to top, transparent 0%, black 20%);
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body class="text-slate-700">
 
@@ -116,18 +40,18 @@
                     </div>
                     <div class="hidden md:block">
                         <div class="ml-10 flex items-baseline space-x-4">
-                            <a href="#about" class="nav-trigger nav-link px-3 py-2 text-sm font-medium text-slate-600 hover:text-blue-800 border-b-2 border-transparent">About ETIV</a>
-                            <a href="#what-we-do" class="nav-trigger nav-link px-3 py-2 text-sm font-medium text-slate-600 hover:text-blue-800 border-b-2 border-transparent">What We Do</a>
-                            <a href="#projects" class="nav-trigger nav-link px-3 py-2 text-sm font-medium text-slate-600 hover:text-blue-800 border-b-2 border-transparent">Our Projects</a>
-                            <a href="#join" class="nav-trigger nav-link px-3 py-2 text-sm font-medium text-slate-600 hover:text-blue-800 border-b-2 border-transparent">Join ETIV</a>
-                            <a href="#news" class="nav-trigger nav-link px-3 py-2 text-sm font-medium text-slate-600 hover:text-blue-800 border-b-2 border-transparent">News & Resources</a>
-                            <a href="#contact" class="nav-trigger nav-link px-3 py-2 text-sm font-medium text-slate-600 hover:text-blue-800 border-b-2 border-transparent">Contact</a>
+                            <a id="nav-about" href="#about" class="nav-trigger nav-link px-3 py-2 text-sm font-medium text-slate-600 hover:text-blue-800 border-b-2 border-transparent">About ETIV</a>
+                            <a id="nav-what-we-do" href="#what-we-do" class="nav-trigger nav-link px-3 py-2 text-sm font-medium text-slate-600 hover:text-blue-800 border-b-2 border-transparent">What We Do</a>
+                            <a id="nav-projects" href="#projects" class="nav-trigger nav-link px-3 py-2 text-sm font-medium text-slate-600 hover:text-blue-800 border-b-2 border-transparent">Our Projects</a>
+                            <a id="nav-join" href="#join" class="nav-trigger nav-link px-3 py-2 text-sm font-medium text-slate-600 hover:text-blue-800 border-b-2 border-transparent">Join ETIV</a>
+                            <a id="nav-news" href="#news" class="nav-trigger nav-link px-3 py-2 text-sm font-medium text-slate-600 hover:text-blue-800 border-b-2 border-transparent">News & Resources</a>
+                            <a id="nav-contact" href="#contact" class="nav-trigger nav-link px-3 py-2 text-sm font-medium text-slate-600 hover:text-blue-800 border-b-2 border-transparent">Contact</a>
                         </div>
                     </div>
                     <div class="hidden md:block">
-                        <span class="text-sm text-slate-400">KR</span>
+                        <span id="lang-kr" class="text-sm text-slate-800 font-semibold cursor-pointer">KR</span>
                         <span class="mx-1 text-slate-300">|</span>
-                        <span class="text-sm text-slate-400 hover:text-slate-800 cursor-pointer">EN</span>
+                        <span id="lang-en" class="text-sm text-slate-400 hover:text-slate-800 cursor-pointer">EN</span>
                     </div>
                     <div class="-mr-2 flex md:hidden">
                         <button id="mobile-menu-button" type="button" class="bg-slate-100 inline-flex items-center justify-center p-2 rounded-md text-slate-500 hover:text-slate-700 hover:bg-slate-200 focus:outline-none">
@@ -141,12 +65,12 @@
             </nav>
             <div id="mobile-menu" class="md:hidden hidden">
                 <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                    <a href="#about" class="nav-trigger nav-link block px-3 py-2 rounded-md text-base font-medium text-slate-600 hover:text-blue-800 hover:bg-slate-100">About ETIV</a>
-                    <a href="#what-we-do" class="nav-trigger nav-link block px-3 py-2 rounded-md text-base font-medium text-slate-600 hover:text-blue-800 hover:bg-slate-100">What We Do</a>
-                    <a href="#projects" class="nav-trigger nav-link block px-3 py-2 rounded-md text-base font-medium text-slate-600 hover:text-blue-800 hover:bg-slate-100">Our Projects</a>
-                    <a href="#join" class="nav-trigger nav-link block px-3 py-2 rounded-md text-base font-medium text-slate-600 hover:text-blue-800 hover:bg-slate-100">Join ETIV</a>
-                    <a href="#news" class="nav-trigger nav-link block px-3 py-2 rounded-md text-base font-medium text-slate-600 hover:text-blue-800 hover:bg-slate-100">News & Resources</a>
-                    <a href="#contact" class="nav-trigger nav-link block px-3 py-2 rounded-md text-base font-medium text-slate-600 hover:text-blue-800 hover:bg-slate-100">Contact</a>
+                    <a id="mobile-nav-about" href="#about" class="nav-trigger nav-link block px-3 py-2 rounded-md text-base font-medium text-slate-600 hover:text-blue-800 hover:bg-slate-100">About ETIV</a>
+                    <a id="mobile-nav-what-we-do" href="#what-we-do" class="nav-trigger nav-link block px-3 py-2 rounded-md text-base font-medium text-slate-600 hover:text-blue-800 hover:bg-slate-100">What We Do</a>
+                    <a id="mobile-nav-projects" href="#projects" class="nav-trigger nav-link block px-3 py-2 rounded-md text-base font-medium text-slate-600 hover:text-blue-800 hover:bg-slate-100">Our Projects</a>
+                    <a id="mobile-nav-join" href="#join" class="nav-trigger nav-link block px-3 py-2 rounded-md text-base font-medium text-slate-600 hover:text-blue-800 hover:bg-slate-100">Join ETIV</a>
+                    <a id="mobile-nav-news" href="#news" class="nav-trigger nav-link block px-3 py-2 rounded-md text-base font-medium text-slate-600 hover:text-blue-800 hover:bg-slate-100">News & Resources</a>
+                    <a id="mobile-nav-contact" href="#contact" class="nav-trigger nav-link block px-3 py-2 rounded-md text-base font-medium text-slate-600 hover:text-blue-800 hover:bg-slate-100">Contact</a>
                 </div>
             </div>
         </header>
@@ -158,17 +82,17 @@
                         <div class="grid lg:grid-cols-2 gap-8 items-center min-h-[calc(100vh-4rem)]">
                             <div class="py-24 sm:py-32 text-center lg:text-left">
                                 <h1 class="text-5xl tracking-tight font-extrabold text-slate-900 sm:text-6xl lg:text-7xl">
-                                    <span class="block">AI for</span>
-                                    <span class="block text-blue-800">Public Good.</span>
-                                    <span class="block">AI for</span>
-                                    <span class="block text-blue-800">Fair Markets.</span>
+                                    <span id="slogan-line1" class="block">AI for</span>
+                                    <span id="slogan-line2" class="block text-blue-800">Public Good.</span>
+                                    <span id="slogan-line3" class="block">AI for</span>
+                                    <span id="slogan-line4" class="block text-blue-800">Fair Markets.</span>
                                 </h1>
                                 <p class="mt-6 max-w-lg mx-auto lg:mx-0 text-lg text-slate-600 sm:text-xl">
                                     우리는 AI 기술의 잠재력을 극대화하여 사회적 난제를 해결하고, 데이터 기반의 합리적인 대안을 제시하는 독립 R&D 싱크탱크입니다.
                                 </p>
                                 <div class="mt-10 sm:flex sm:justify-center lg:justify-start space-y-4 sm:space-y-0 sm:space-x-4">
                                     <div class="rounded-md shadow">
-                                        <a href="#about" class="nav-trigger w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white burgundy-btn md:py-4 md:text-lg md:px-10">
+                                        <a id="home-cta-about" href="#about" class="nav-trigger w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white burgundy-btn md:py-4 md:text-lg md:px-10">
                                             연구소 더 알아보기
                                         </a>
                                     </div>
@@ -211,7 +135,9 @@
                             <div class="flex flex-col sm:flex-row items-center text-center sm:text-left">
                                 <div class="flex-shrink-0">
                                     <div class="w-32 h-32 rounded-full bg-slate-200 mx-auto flex items-center justify-center">
-                                        <span class="text-slate-500">프로필</span>
+                                        <svg class="w-20 h-20 text-slate-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
                                     </div>
                                 </div>
                                 <div class="mt-4 sm:mt-0 sm:ml-6">
@@ -223,7 +149,9 @@
                              <div class="flex flex-col sm:flex-row items-center text-center sm:text-left">
                                 <div class="flex-shrink-0">
                                     <div class="w-32 h-32 rounded-full bg-slate-200 mx-auto flex items-center justify-center">
-                                        <span class="text-slate-500">프로필</span>
+                                        <svg class="w-20 h-20 text-slate-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
                                     </div>
                                 </div>
                                 <div class="mt-4 sm:mt-0 sm:ml-6">
@@ -327,7 +255,7 @@
                              <div class="flex items-center justify-center h-12 w-12 rounded-md bg-blue-800 text-white">
                                 <span class="text-2xl">📺</span>
                             </div>
-                            <h3 class="mt-6 text-xl font-bold text-slate-900">AI-based New Media & Social Flatform</h3>
+                            <h3 class="mt-6 text-xl font-bold text-slate-900">AI-based New Media & Social Platform</h3>
                             <p class="mt-2 text-base text-slate-600">세상의 변화를 이끄는 의사와 변호사의 AI 인사이트. 복잡한 AI 이슈를 대중의 눈높이에서 풀어내며 사회적 담론을 형성하고 공론화를 주도합니다.</p>
                         </div>
                     </div>
@@ -398,7 +326,7 @@
                      <div class="mt-16 max-w-2xl mx-auto bg-slate-50 p-8 rounded-lg text-center">
                         <h3 class="text-xl font-bold text-slate-800">뉴스레터 구독</h3>
                         <p class="mt-2 text-slate-600">ETIV AI 연구소의 최신 소식과 깊이 있는 인사이트를 가장 먼저 받아보세요.</p>
-                        <form class="mt-6 flex flex-col sm:flex-row gap-2">
+                        <form id="newsletter-form" class="mt-6 flex flex-col sm:flex-row gap-2">
                             <input type="email" placeholder="이메일 주소를 입력하세요" class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
                             <button type="submit" class="w-full sm:w-auto bg-blue-800 text-white font-semibold py-2 px-6 rounded-md hover:bg-blue-900">구독하기</button>
                         </form>
@@ -416,7 +344,7 @@
                         </p>
                     </div>
                     <div class="mt-20 max-w-lg mx-auto bg-white p-8 sm:p-10 rounded-lg shadow-xl">
-                        <form action="#" method="POST" class="space-y-6">
+                        <form id="contact-form" action="#" method="POST" class="space-y-6">
                             <div>
                                 <label for="contact-type" class="block text-sm font-medium text-slate-700">문의 유형</label>
                                 <select id="contact-type" name="contact-type" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-slate-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
@@ -481,242 +409,6 @@
         </div>
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            
-            const projectsData = [
-                {
-                    id: 'prj-healthcare',
-                    title: 'AI 헬스케어 규제준수 플랫폼',
-                    description: '디지털 헬스케어 기업이 복잡한 의료 데이터 규제(HIPAA, GDPR 등)를 손쉽게 준수하고 제품 개발에 집중하도록 돕는 Compliance-as-a-Service 솔루션입니다.',
-                    status: 'Seed',
-                    partners: 'OO대학병원, XX파트너스',
-                    chartData: { labels: ['달성', '목표'], values: [60, 40] }
-                },
-                {
-                    id: 'prj-legal',
-                    title: 'AI 기반 법률 리스크 관리 SaaS',
-                    description: '기업의 계약서, 법률문서 등을 AI로 분석하여 잠재적 법률 리스크를 사전에 식별하고 대응 방안을 제시하는 B2B SaaS입니다.',
-                    status: 'Pre-Seed',
-                    partners: '법무법인 OO',
-                    chartData: { labels: ['달성', '목표'], values: [30, 70] }
-                },
-                {
-                    id: 'prj-rag',
-                    title: 'AI 정책 연구를 위한 RAG 툴체인',
-                    description: '방대한 법률, 논문, 보고서 데이터를 학습한 RAG 기술을 활용하여 정책 연구자들이 신뢰할 수 있는 보고서를 신속하게 작성하도록 지원하는 전문 툴체인입니다.',
-                    status: 'R&D',
-                    partners: 'ETIV AI Institute 자체 개발',
-                    chartData: { labels: ['달성', '목표'], values: [85, 15] }
-                }
-            ];
-
-            const newsData = [
-                { id: 'news-1', category: '언론보도', title: 'ETIV AI 연구소, AI 기반 헬스케어 규제 해결사로 나서', source: 'OO일보' },
-                { id: 'news-2', category: '블로그', title: '[인사이트] 생성형 AI 시대, 법률 시장의 5가지 변화', source: 'ETIV Blog' },
-                { id: 'news-3', category: '연구자료', title: 'AI 정책 수립을 위한 RAG 기술 활용 백서', source: 'ETIV Research' },
-                { id: 'news-4', category: 'YouTube', title: '변새와 의새 Ep. 15 - AI 투자의 미래', source: 'YouTube Channel' },
-                { id: 'news-5', category: '언론보도', title: 'ETIV, AI 스타트업 인큐베이팅 프로그램 공개', source: 'XX경제' },
-                { id: 'news-6', category: '블로그', title: 'Human-Centric AI란 무엇인가?', source: 'ETIV Blog' },
-            ];
-            
-            // --- Navigation and Basic UI ---
-            const sections = document.querySelectorAll('.section');
-            const navLinks = document.querySelectorAll('.nav-trigger');
-            const mobileMenuButton = document.getElementById('mobile-menu-button');
-            const mobileMenu = document.getElementById('mobile-menu');
-            
-            function showSection(id) {
-                const targetId = id.startsWith('#') ? id.substring(1) : id;
-                sections.forEach(section => {
-                    section.classList.toggle('active', section.id === targetId);
-                });
-                updateActiveNav(targetId);
-                window.scrollTo(0, 0);
-            }
-
-            function updateActiveNav(targetId) {
-                document.querySelectorAll('.nav-link').forEach(link => {
-                    link.classList.toggle('active', link.getAttribute('href') === `#${targetId}`);
-                });
-            }
-
-            navLinks.forEach(link => {
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const targetId = link.getAttribute('href');
-                    showSection(targetId);
-                    if (!mobileMenu.classList.contains('hidden')) {
-                        mobileMenu.classList.add('hidden');
-                    }
-                });
-            });
-
-            mobileMenuButton.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
-            
-            const initialSection = window.location.hash || '#home';
-            showSection(initialSection);
-            
-            // --- Gemini API Integration ---
-            const aiModal = document.getElementById('ai-modal');
-            const modalTitle = document.getElementById('modal-title');
-            const modalContent = document.getElementById('modal-content');
-            const modalCloseBtn = document.getElementById('modal-close-btn');
-
-            modalCloseBtn.addEventListener('click', () => aiModal.classList.add('hidden'));
-            aiModal.addEventListener('click', (e) => {
-                if (e.target === aiModal) {
-                    aiModal.classList.add('hidden');
-                }
-            });
-
-            function showLoadingInModal(title) {
-                modalTitle.textContent = title;
-                modalContent.innerHTML = `
-                    <div class="flex justify-center items-center py-10">
-                        <div class="spinner w-12 h-12 rounded-full border-4 border-slate-200"></div>
-                        <p class="ml-4 text-slate-600">AI가 분석 중입니다. 잠시만 기다려주세요...</p>
-                    </div>
-                `;
-                aiModal.classList.remove('hidden');
-            }
-            
-            async function callGeminiAPI(prompt) {
-                const apiKey = "AIzaSyDNdLLgXjIfjEMU9qc2jPAdXhXqAsoS3jU"; 
-                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-                const payload = { contents: [{ role: "user", parts: [{ text: prompt }] }] };
-
-                try {
-                    const response = await fetch(apiUrl, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
-
-                    if (!response.ok) throw new Error(`API Error: ${response.status}`);
-                    
-                    const result = await response.json();
-
-                    if (result.candidates?.[0]?.content?.parts?.[0]?.text) {
-                        return result.candidates[0].content.parts[0].text;
-                    } else {
-                        throw new Error("Invalid API response structure.");
-                    }
-                } catch (error) {
-                    console.error('Gemini API call failed:', error);
-                    return "AI 분석 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.";
-                }
-            }
-            
-            function formatAIResponse(text) {
-                return text
-                    .replace(/\*\*(.*?)\*\*/g, '<strong class="text-slate-800">$1</strong>') // Bold
-                    .replace(/\* (.*?)(?=\n\*|\n\n|$)/g, '<li class="ml-5 list-disc">$1</li>') // List items
-                    .replace(/(<\/li>)+/g, '</li>') // Clean up multiple closing tags
-                    .replace(/^(?!<li|<\/ul>)(.*?)(\n|$)/gm, '<p>$1</p>') // Wrap non-list lines in <p>
-                    .replace(/<\/li><p>/g, '</li></ul><p>') // Close list before new paragraph
-                    .replace(/<p><li/g, '<ul><li') // Start list
-                    .replace(/(<\/li>)(?!<li)/g, '$1</ul>'); // End list at the end
-            }
-
-
-            // --- Projects Section Logic ---
-            function renderProjects() {
-                const grid = document.getElementById('projects-grid');
-                grid.innerHTML = '';
-                projectsData.forEach((project, index) => {
-                    const card = document.createElement('div');
-                    card.className = 'bg-white p-8 rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 flex flex-col';
-                    card.innerHTML = `
-                        <div>
-                            <span class="text-sm font-semibold text-white bg-blue-700 py-1 px-3 rounded-full">${project.status}</span>
-                            <h3 class="mt-4 text-xl font-bold text-slate-900">${project.title}</h3>
-                            <p class="mt-2 text-base text-slate-600 flex-grow">${project.description}</p>
-                        </div>
-                        <div class="mt-6">
-                            <div class="chart-container h-48 sm:h-56 mx-auto">
-                                <canvas id="project-chart-${index}"></canvas>
-                            </div>
-                            <p class="mt-4 text-sm text-slate-500"><strong>참여기관:</strong> ${project.partners}</p>
-                             <div class="flex flex-col sm:flex-row gap-2 mt-4">
-                                <button class="w-full text-blue-800 font-semibold py-2 px-4 rounded-md border border-blue-200 hover:bg-blue-50">[PDF] 보고서</button>
-                                <button id="analyze-btn-${project.id}" class="w-full bg-blue-800 text-white font-semibold py-2 px-4 rounded-md hover:bg-blue-900">✨ AI 사업 모델 분석</button>
-                             </div>
-                        </div>
-                    `;
-                    grid.appendChild(card);
-                    createProjectChart(index, project.chartData);
-
-                    document.getElementById(`analyze-btn-${project.id}`).addEventListener('click', async () => {
-                        showLoadingInModal(`✨ ${project.title} 분석`);
-                        const prompt = `다음 AI 사업 모델에 대한 SWOT 분석(강점, 약점, 기회, 위협)을 전문가 수준으로 작성해줘. 각 항목은 명확하게 구분하고, 구체적인 예시를 포함해줘.\n\n- 사업 모델: ${project.title}\n- 설명: ${project.description}`;
-                        const result = await callGeminiAPI(prompt);
-                        modalContent.innerHTML = formatAIResponse(result);
-                    });
-                });
-            }
-
-            function createProjectChart(index, data) {
-                 const ctx = document.getElementById(`project-chart-${index}`).getContext('2d');
-                 new Chart(ctx, { type: 'doughnut', data: { labels: data.labels, datasets: [{ data: data.values, backgroundColor: ['#1d4ed8', '#dbeafe'], borderColor: '#ffffff', borderWidth: 2 }] }, options: { responsive: true, maintainAspectRatio: false, cutout: '70%', plugins: { legend: { display: false }, tooltip: { enabled: true, callbacks: { label: (c) => `${c.label}: ${c.raw}%` } } } } });
-            }
-            renderProjects();
-            
-            // --- News Section Logic ---
-            const newsGrid = document.getElementById('news-grid');
-            const filterBtns = document.querySelectorAll('.news-filter-btn');
-
-            function renderNews(filter = 'All') {
-                newsGrid.innerHTML = '';
-                const filteredNews = filter === 'All' ? newsData : newsData.filter(item => item.category === filter);
-
-                filteredNews.forEach(item => {
-                    const card = document.createElement('div');
-                    card.className = 'news-item bg-white rounded-lg shadow-md overflow-hidden transition-shadow duration-300 flex flex-col';
-                    card.innerHTML = `
-                        <div class="p-6 flex-grow">
-                            <span class="text-xs font-semibold uppercase tracking-wider text-blue-700">${item.category}</span>
-                            <h4 class="mt-2 font-bold text-lg text-slate-800">${item.title}</h4>
-                            <p class="mt-3 text-sm text-slate-500">출처: ${item.source}</p>
-                            <div id="summary-container-${item.id}" class="mt-4 text-sm bg-slate-50 p-3 rounded-md border border-slate-200 hidden"></div>
-                        </div>
-                        <div class="p-4 bg-slate-50 border-t">
-                            <button id="summarize-btn-${item.id}" class="w-full text-center text-sm font-semibold text-blue-700 hover:text-blue-900">✨ AI 한 줄 요약 보기</button>
-                        </div>
-                    `;
-                    newsGrid.appendChild(card);
-                    
-                    const summarizeBtn = document.getElementById(`summarize-btn-${item.id}`);
-                    const summaryContainer = document.getElementById(`summary-container-${item.id}`);
-
-                    summarizeBtn.addEventListener('click', async function() {
-                        this.textContent = '요약 중...';
-                        this.disabled = true;
-
-                        const prompt = `다음 기사 제목과 출처를 바탕으로, 기사의 핵심 내용을 한 문장으로 요약해줘: \n\n- 제목: ${item.title}\n- 출처: ${item.source}`;
-                        const summary = await callGeminiAPI(prompt);
-                        
-                        summaryContainer.innerHTML = `<strong class="text-blue-800">AI 요약:</strong> ${summary}`;
-                        summaryContainer.classList.remove('hidden');
-                        this.parentElement.classList.add('hidden'); // Hide the button's container
-                    });
-                });
-            }
-
-            filterBtns.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    filterBtns.forEach(b => b.classList.remove('active-filter'));
-                    btn.classList.add('active-filter');
-                    renderNews(btn.dataset.filter);
-                });
-            });
-            
-            const activeFilterStyle = document.createElement('style');
-            activeFilterStyle.innerHTML = `.active-filter{background-color:#1e40af !important;color:white !important}.news-filter-btn{background-color:#e2e8f0;color:#334155;transition:background-color .2s,color .2s}.news-filter-btn:hover{background-color:#cbd5e1}`;
-            document.head.appendChild(activeFilterStyle);
-
-            renderNews();
-        });
-    </script>
+    <script src="script.js" defer></script>
 </body>
 </html>
