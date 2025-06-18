@@ -100,7 +100,7 @@
     -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
 
-    <div id="app" class="antialiased">
+    <div id="app" class="antialiased flex flex-col min-h-screen">
         <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
             <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex items-center justify-between h-16">
@@ -144,7 +144,7 @@
             </div>
         </header>
 
-        <main>
+        <main class="flex-grow">
             <section id="home" class="section">
                 <div class="relative bg-white overflow-hidden">
                     <div class="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -597,7 +597,7 @@
             }
             
             async function callGeminiAPI(prompt) {
-                const apiKey = "AIzaSyDNdLLgXjIfjEMU9qc2jPAdXhXqAsoS3jU"; 
+                const apiKey = ""; 
                 const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
                 const payload = { contents: [{ role: "user", parts: [{ text: prompt }] }] };
 
