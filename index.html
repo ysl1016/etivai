@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ETIV AI Institute</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Nanum+Gothic:wght@400;700;800&family=SUIT:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'SUIT', 'Inter', sans-serif;
+            background-color: #f8fafc; /* bg-slate-50 */
+        }
+        .section {
+            display: none;
+            animation: fadeIn 0.8s;
+        }
+        .section.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .nav-link {
+            transition: color 0.3s, border-bottom-color 0.3s;
+        }
+        .nav-link.active {
+            color: #1e40af; /* text-blue-800 */
+            border-bottom-color: #1e40af;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 250px; 
+            max-height: 300px;
+        }
+        @media (min-width: 768px) {
+            .chart-container { 
+                height: 350px;
+                max-height: 400px;
+             } 
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            top: 1rem;
+            left: -0.6rem;
+            width: 1.2rem;
+            height: 1.2rem;
+            background-color: #1e3a8a; /* bg-blue-900 */
+            border-radius: 9999px;
+            border: 4px solid #f8fafc;
+        }
+        .modal {
+            transition: opacity 0.3s ease;
+        }
+        .spinner {
+            border-top-color: #3b82f6;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .burgundy-btn {
+            background-color: #800020;
+        }
+        .burgundy-btn:hover {
+            background-color: #66001a;
+        }
+        .bg-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                radial-gradient(circle at center, rgba(0,0,0,0.04) 1px, transparent 1px);
+            background-size: 2rem 2rem;
+            mask-image: linear-gradient(to top, transparent 0%, black 20%);
+        }
+    </style>
+</head>
+<body class="text-slate-700">
+
+    <!-- 
+        Chosen Palette: Tech Professionalism (Slate, Deep Blue, Silver) with Burgundy Accent
+        - Background: Slate 50 (#f8fafc)
+        - Text: Slate 700/800 (#334155, #1e293b)
+        - Primary/Accent: Blue 800/900 (#1e40af, #1e3a8a)
+        - Secondary/Highlight: Slate 200 (#e2e8f0)
+        - Accent: Burgundy (#800020)
+    -->
+    <!-- 
+        Application Structure Plan: A single-page application (SPA) model was chosen to provide a fluid, uninterrupted user experience. The main change is in the Home section, which is redesigned to be more impactful. It now uses a two-column layout on desktops for a modern, asymmetrical look, with a large, bold slogan and a new mission statement on the left, and a subtle, abstract background pattern on the right to visually represent technology and data without being distracting. This structure aims to immediately convey professionalism and a forward-thinking vision. The burgundy accent color is used sparingly on a primary CTA to draw attention effectively.
+    -->
+    <!-- 
+        Visualization & Content Choices:
+        - Report Info: Main Slogan & Mission -> Goal: Inform/Impact -> Viz/Presentation Method: Dramatically enlarged font size for the slogan in a two-column layout. A new, more descriptive mission statement is added for context. -> Interaction: Static text, but visually dynamic due to layout and typography. -> Justification: The larger text and focused layout immediately grab user attention and establish the institute's core identity with more authority and style. The minimal burgundy accent on the button creates a clear primary action.
+        - Report Info: Technology/Data concept -> Goal: Set a tone -> Viz/Presentation Method: A subtle, non-intrusive background dot pattern created with CSS radial gradients. -> Interaction: None, purely atmospheric. -> Justification: It adds a layer of visual sophistication and hints at the "data/AI" theme without cluttering the interface or slowing down the page, reinforcing the modern, minimalist aesthetic.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <div id="app" class="antialiased flex flex-col min-h-screen">
+        <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
+            <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-16">
+                    <div class="flex-shrink-0">
+                        <a href="#home" class="nav-trigger text-2xl font-bold text-slate-800">ETIV AI</a>
+                    </div>
+                    <div class="hidden md:block">
+                        <div class="ml-10 flex items-baseline space-x-4">
+                            <a href="#about" class="nav-trigger nav-link px-3 py-2 text-sm font-medium text-slate-600 hover:text-blue-800 border-b-2 border-transparent">About ETIV</a>
+                            <a href="#what-we-do" class="nav-trigger nav-link px-3 py-2 text-sm font-medium text-slate-600 hover:text-blue-800 border-b-2 border-transparent">What We Do</a>
+                            <a href="#projects" class="nav-trigger nav-link px-3 py-2 text-sm font-medium text-slate-600 hover:text-blue-800 border-b-2 border-transparent">Our Projects</a>
+                            <a href="#join" class="nav-trigger nav-link px-3 py-2 text-sm font-medium text-slate-600 hover:text-blue-800 border-b-2 border-transparent">Join ETIV</a>
+                            <a href="#news" class="nav-trigger nav-link px-3 py-2 text-sm font-medium text-slate-600 hover:text-blue-800 border-b-2 border-transparent">News & Resources</a>
+                            <a href="#contact" class="nav-trigger nav-link px-3 py-2 text-sm font-medium text-slate-600 hover:text-blue-800 border-b-2 border-transparent">Contact</a>
+                        </div>
+                    </div>
+                    <div class="hidden md:block">
+                        <span class="text-sm text-slate-400">KR</span>
+                        <span class="mx-1 text-slate-300">|</span>
+                        <span class="text-sm text-slate-400 hover:text-slate-800 cursor-pointer">EN</span>
+                    </div>
+                    <div class="-mr-2 flex md:hidden">
+                        <button id="mobile-menu-button" type="button" class="bg-slate-100 inline-flex items-center justify-center p-2 rounded-md text-slate-500 hover:text-slate-700 hover:bg-slate-200 focus:outline-none">
+                            <span class="sr-only">Open main menu</span>
+                            <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </nav>
+            <div id="mobile-menu" class="md:hidden hidden">
+                <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                    <a href="#about" class="nav-trigger nav-link block px-3 py-2 rounded-md text-base font-medium text-slate-600 hover:text-blue-800 hover:bg-slate-100">About ETIV</a>
+                    <a href="#what-we-do" class="nav-trigger nav-link block px-3 py-2 rounded-md text-base font-medium text-slate-600 hover:text-blue-800 hover:bg-slate-100">What We Do</a>
+                    <a href="#projects" class="nav-trigger nav-link block px-3 py-2 rounded-md text-base font-medium text-slate-600 hover:text-blue-800 hover:bg-slate-100">Our Projects</a>
+                    <a href="#join" class="nav-trigger nav-link block px-3 py-2 rounded-md text-base font-medium text-slate-600 hover:text-blue-800 hover:bg-slate-100">Join ETIV</a>
+                    <a href="#news" class="nav-trigger nav-link block px-3 py-2 rounded-md text-base font-medium text-slate-600 hover:text-blue-800 hover:bg-slate-100">News & Resources</a>
+                    <a href="#contact" class="nav-trigger nav-link block px-3 py-2 rounded-md text-base font-medium text-slate-600 hover:text-blue-800 hover:bg-slate-100">Contact</a>
+                </div>
+            </div>
+        </header>
+
+        <main class="flex-grow">
+            <section id="home" class="section">
+                <div class="relative bg-slate-50 overflow-hidden">
+                    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                        <div class="grid lg:grid-cols-2 gap-8 items-center min-h-[calc(100vh-4rem)]">
+                            <div class="py-24 sm:py-32 text-center lg:text-left">
+                                <h1 class="text-5xl tracking-tight font-extrabold text-slate-900 sm:text-6xl lg:text-7xl">
+                                    <span class="block">AI for</span>
+                                    <span class="block text-blue-800">Public Good.</span>
+                                    <span class="block">AI for</span>
+                                    <span class="block text-blue-800">Fair Markets.</span>
+                                </h1>
+                                <p class="mt-6 max-w-lg mx-auto lg:mx-0 text-lg text-slate-600 sm:text-xl">
+                                    우리는 AI 기술의 잠재력을 극대화하여 사회적 난제를 해결하고, 데이터 기반의 합리적인 대안을 제시하는 독립 R&D 싱크탱크입니다.
+                                </p>
+                                <div class="mt-10 sm:flex sm:justify-center lg:justify-start space-y-4 sm:space-y-0 sm:space-x-4">
+                                    <div class="rounded-md shadow">
+                                        <a href="#about" class="nav-trigger w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white burgundy-btn md:py-4 md:text-lg md:px-10">
+                                            연구소 더 알아보기
+                                        </a>
+                                    </div>
+                                    <div class="rounded-md">
+                                        <a href="#projects" class="nav-trigger w-full flex items-center justify-center px-8 py-3 border border-slate-300 text-base font-medium rounded-md text-slate-700 bg-white hover:bg-slate-100 md:py-4 md:text-lg md:px-10">
+                                            핵심 프로젝트
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hidden lg:block relative w-full h-full">
+                               <div class="bg-pattern"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="about" class="section py-16 sm:py-24 bg-white">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center">
+                        <h2 class="text-base font-semibold text-blue-700 tracking-wide uppercase">About ETIV</h2>
+                        <p class="mt-2 text-3xl font-extrabold text-slate-900 tracking-tight sm:text-4xl">더 나은 사회를 위한 AI 솔루션</p>
+                        <p class="mt-4 max-w-2xl mx-auto text-xl text-slate-500">
+                            ETIV는 기술이 인간을 향할 때 가장 큰 가치를 창출한다고 믿습니다. 우리는 AI 기술로 사회 문제 해결의 새로운 가능성을 엽니다.
+                        </p>
+                    </div>
+
+                    <div class="mt-20">
+                        <h3 class="text-2xl font-bold text-slate-800 text-center">Why ETIV AI?</h3>
+                        <div class="mt-6 max-w-3xl mx-auto text-lg text-slate-600 leading-relaxed text-center bg-slate-50 p-8 rounded-lg">
+                           <p>기술의 진보는 인류에게 풍요를 약속했지만, 동시에 새로운 형태의 불평등과 격차를 낳고 있습니다. ETIV AI 연구소는 이러한 문제의식에서 출발했습니다. 우리는 <strong>'인간 중심 AI(Human-Centric AI)'</strong> 철학을 바탕으로, 기술이 소외와 차별이 아닌 연결과 포용의 도구가 되어야 한다고 믿습니다.</p>
+                           <p class="mt-4">AI 기술을 통해 사회 시스템의 비효율을 개선하고, 공공 정책의 과학적 근거를 강화하며, 시장의 정보 비대칭을 해소하는 것. 이것이 ETIV가 존재하는 이유입니다. 우리는 AI를 통해 <strong>불합리한 격차를 해소</strong>하고, <strong>지속가능한 생산성 혁신</strong>을 이끌어, 다음 세대를 위한 더 나은 사회 기반을 구축하고자 합니다.</p>
+                        </div>
+                    </div>
+
+                    <div class="mt-20">
+                        <h3 class="text-2xl font-bold text-slate-800 text-center">공동설립자 (Co-Founders)</h3>
+                        <div class="mt-12 grid gap-12 lg:grid-cols-2 lg:gap-16">
+                            <div class="flex flex-col sm:flex-row items-center text-center sm:text-left">
+                                <div class="flex-shrink-0">
+                                    <div class="w-32 h-32 rounded-full bg-slate-200 mx-auto flex items-center justify-center">
+                                        <span class="text-slate-500">프로필 사진</span>
+                                    </div>
+                                </div>
+                                <div class="mt-4 sm:mt-0 sm:ml-6">
+                                    <h4 class="text-lg font-bold text-slate-900">이용승 전문의</h4>
+                                    <p class="text-sm font-medium text-blue-700">CEO, Head of AI & Healthcare</p>
+                                    <p class="mt-2 text-base text-slate-600">"데이터 기반의 정밀한 진단과 맞춤형 헬스케어 솔루션으로 인류의 건강한 미래를 열겠습니다."</p>
+                                </div>
+                            </div>
+                             <div class="flex flex-col sm:flex-row items-center text-center sm:text-left">
+                                <div class="flex-shrink-0">
+                                    <div class="w-32 h-32 rounded-full bg-slate-200 mx-auto flex items-center justify-center">
+                                        <span class="text-slate-500">프로필 사진</span>
+                                    </div>
+                                </div>
+                                <div class="mt-4 sm:mt-0 sm:ml-6">
+                                    <h4 class="text-lg font-bold text-slate-900">신인규 변호사</h4>
+                                    <p class="text-sm font-medium text-blue-700">CSO, Head of Policy & Legal</p>
+                                    <p class="mt-2 text-base text-slate-600">"AI 시대에 걸맞은 법률과 정책을 디자인하여, 기술이 공정하게 활용되고 사회적 신뢰를 얻도록 돕겠습니다."</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-20">
+                        <h3 class="text-2xl font-bold text-slate-800 text-center">조직 구조 (Our Organization)</h3>
+                        <p class="mt-4 max-w-2xl mx-auto text-lg text-slate-500 text-center">
+                            기술과 정책의 균형 있는 리더십을 바탕으로, 각 위원회가 전문성을 발휘하여 시너지를 창출하는 유기적인 조직 구조를 갖추고 있습니다.
+                        </p>
+                        <div class="mt-10 max-w-4xl mx-auto p-8 bg-slate-50 rounded-lg">
+                            <div class="relative text-center">
+                                <div class="inline-block bg-blue-800 text-white font-bold py-3 px-6 rounded-lg shadow-lg">대표단 (Leadership)</div>
+                                <div class="absolute top-full left-1/2 w-px h-8 bg-slate-300 transform -translate-x-1/2"></div>
+                                <div class="mt-8 flex justify-center space-x-4">
+                                    <div class="bg-blue-200 text-blue-900 py-2 px-4 rounded-md">CEO</div>
+                                    <div class="bg-blue-200 text-blue-900 py-2 px-4 rounded-md">CSO</div>
+                                </div>
+                                <div class="absolute top-full left-1/2 w-px h-16 bg-slate-300 transform -translate-x-1/2 mt-14"></div>
+                            </div>
+                             <div class="mt-24 pt-8 border-t-2 border-slate-300 border-dashed">
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center relative">
+                                     <div class="absolute top-[-58px] left-0 right-0 h-px bg-slate-300"></div>
+                                    <div class="relative">
+                                        <div class="absolute top-[-58px] left-1/2 w-px h-8 bg-slate-300 transform -translate-x-1/2"></div>
+                                        <h4 class="font-bold text-slate-800 bg-slate-200 py-2 px-4 rounded-md inline-block">정책위원회</h4>
+                                        <p class="mt-2 text-sm text-slate-600">AI 윤리, 법제도, 공공정책 연구</p>
+                                    </div>
+                                    <div class="relative">
+                                        <div class="absolute top-[-58px] left-1/2 w-px h-8 bg-slate-300 transform -translate-x-1/2"></div>
+                                        <h4 class="font-bold text-slate-800 bg-slate-200 py-2 px-4 rounded-md inline-block">교육위원회</h4>
+                                        <p class="mt-2 text-sm text-slate-600">차세대 리더 양성, 대중 인식 개선</p>
+                                    </div>
+                                    <div class="relative">
+                                        <div class="absolute top-[-58px] left-1/2 w-px h-8 bg-slate-300 transform -translate-x-1/2"></div>
+                                        <h4 class="font-bold text-slate-800 bg-slate-200 py-2 px-4 rounded-md inline-block">ETIV위원회</h4>
+                                        <p class="mt-2 text-sm text-slate-600">핵심가치 설정, 주요 의사결정</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-20">
+                        <h3 class="text-2xl font-bold text-slate-800 text-center">주요 연혁 (History)</h3>
+                        <div class="mt-12 max-w-2xl mx-auto">
+                            <div class="relative border-l-2 border-slate-200 ml-4 pl-8 space-y-12">
+                                <div class="timeline-item">
+                                    <p class="text-sm font-semibold text-blue-700">2025. 06</p>
+                                    <h4 class="mt-1 text-lg font-bold text-slate-800">ETIV AI Institute 설립</h4>
+                                    <p class="mt-1 text-slate-600">인간 중심 AI를 통한 사회 문제 해결을 목표로 공식 출범</p>
+                                </div>
+                                <div class="timeline-item">
+                                    <p class="text-sm font-semibold text-blue-700">2025. 06</p>
+                                    <h4 class="mt-1 text-lg font-bold text-slate-800">AI 헬스케어 규제준수 플랫폼 BM 개발 착수</h4>
+                                    <p class="mt-1 text-slate-600">첫 번째 핵심 프로젝트로 의료 AI 시장의 규제 장벽 해결에 도전</p>
+                                </div>
+                                <div class="timeline-item">
+                                    <p class="text-sm font-semibold text-blue-700">2025. 07</p>
+                                    <h4 class="mt-1 text-lg font-bold text-slate-800">Pre-Seed 투자 유치</h4>
+                                    <p class="mt-1 text-slate-600">주요 엔젤 투자자로부터 기술력과 비전을 통해 초기 투자유치 진행예정</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="what-we-do" class="section py-16 sm:py-24">
+                 <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center">
+                        <h2 class="text-base font-semibold text-blue-700 tracking-wide uppercase">What We Do</h2>
+                        <p class="mt-2 text-3xl font-extrabold text-slate-900 tracking-tight sm:text-4xl">ETIV의 3대 핵심축</p>
+                        <p class="mt-4 max-w-2xl mx-auto text-xl text-slate-500">
+                            연구, 비즈니스, 미디어를 아우르는 입체적인 접근으로 AI 기술의 사회적 가치를 극대화합니다.
+                        </p>
+                    </div>
+
+                    <div class="mt-20 grid md:grid-cols-3 gap-10">
+                        <div class="bg-white p-8 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+                            <div class="flex items-center justify-center h-12 w-12 rounded-md bg-blue-800 text-white">
+                                <span class="text-2xl">🏛️</span>
+                            </div>
+                            <h3 class="mt-6 text-xl font-bold text-slate-900">AI-based Policy & ThinkTank</h3>
+                            <p class="mt-2 text-base text-slate-600">AI 기술을 기반으로 만드는 증거 기반 정책(Evidence-based Policy)과 건강한 공론장. 데이터 기반 정책 연구, 선거 공약 지원, 공공 리더십 플랫폼 등을 통해 합리적 의사결정을 돕습니다.</p>
+                        </div>
+                        <div class="bg-white p-8 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+                             <div class="flex items-center justify-center h-12 w-12 rounded-md bg-blue-800 text-white">
+                                <span class="text-2xl">💡</span>
+                            </div>
+                            <h3 class="mt-6 text-xl font-bold text-slate-900">AI-based Business Model Incubator</h3>
+                            <p class="mt-2 text-base text-slate-600">아이디어를 현실로, 지속가능한 AI 비즈니스를 만듭니다. 사회 문제 해결을 위한 창의적인 BM의 신규 개발, 검증, 배포 및 상업화를 통해 강력한 사회적 임팩트를 창출합니다.</p>
+                        </div>
+                         <div class="bg-white p-8 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+                             <div class="flex items-center justify-center h-12 w-12 rounded-md bg-blue-800 text-white">
+                                <span class="text-2xl">📺</span>
+                            </div>
+                            <h3 class="mt-6 text-xl font-bold text-slate-900">AI-based Media</h3>
+                            <p class="mt-2 text-base text-slate-600">세상의 변화를 이끄는 의사와 변호사의 AI 인사이트. 복잡한 AI 이슈를 대중의 눈높이에서 풀어내며 사회적 담론을 형성하고 공론화를 주도합니다.</p>
+                        </div>
+                    </div>
+                 </div>
+            </section>
+            
+            <section id="projects" class="section py-16 sm:py-24 bg-white">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center">
+                        <h2 class="text-base font-semibold text-blue-700 tracking-wide uppercase">Our Projects</h2>
+                        <p class="mt-2 text-3xl font-extrabold text-slate-900 tracking-tight sm:text-4xl">진행 중인 핵심 BM</p>
+                         <p class="mt-4 max-w-2xl mx-auto text-xl text-slate-500">
+                            사회적 필요성과 기술적 혁신이 만나는 지점에서 ETIV의 프로젝트는 시작됩니다. 각 프로젝트의 진행 상황과 비전을 확인하고, AI가 분석하는 인사이트를 만나보세요.
+                        </p>
+                    </div>
+                    <div id="projects-grid" class="mt-20 grid gap-10 md:grid-cols-2 lg:grid-cols-3">
+                    </div>
+                </div>
+            </section>
+
+            <section id="join" class="section py-16 sm:py-24">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center">
+                        <h2 class="text-base font-semibold text-blue-700 tracking-wide uppercase">Join ETIV</h2>
+                        <p class="mt-2 text-3xl font-extrabold text-slate-900 tracking-tight sm:text-4xl">AI 혁신의 여정에 함께하세요</p>
+                         <p class="mt-4 max-w-2xl mx-auto text-xl text-slate-500">
+                            ETIV는 더 나은 사회를 위한 변화에 공감하는 전문가, 인재, 파트너들의 참여를 기다립니다.
+                        </p>
+                    </div>
+                    <div class="mt-20 max-w-4xl mx-auto grid md:grid-cols-2 gap-10">
+                        <div class="bg-white p-8 rounded-lg shadow-lg">
+                            <h3 class="text-xl font-bold text-slate-900">회원 참여 (Membership)</h3>
+                            <p class="mt-4 text-slate-600">연구소의 비전과 철학에 동의하며 활동에 참여하는 <strong class="text-slate-800">정회원(Fellow)</strong>과, 연구소 활동을 지지하며 인사이트를 얻는 <strong class="text-slate-800">준회원(Associate)</strong> 제도를 운영합니다.</p>
+                            <button class="mt-6 w-full bg-slate-100 text-slate-700 font-semibold py-2 px-4 rounded-md hover:bg-slate-200">회원 안내 보기</button>
+                        </div>
+                        <div class="bg-white p-8 rounded-lg shadow-lg">
+                            <h3 class="text-xl font-bold text-slate-900">채용 공고 (Careers)</h3>
+                            <p class="mt-4 text-slate-600">AI 모델 개발자, 서비스 기획자, 정책 연구원 등 AI 혁신을 이끌어갈 최고의 인재를 찾습니다. ETIV와 함께 성장할 기회에 도전하세요.</p>
+                            <button class="mt-6 w-full bg-slate-100 text-slate-700 font-semibold py-2 px-4 rounded-md hover:bg-slate-200">모든 채용 공고 보기</button>
+                        </div>
+                    </div>
+                     <div class="mt-10 max-w-4xl mx-auto bg-blue-800 text-white p-8 rounded-lg shadow-lg text-center">
+                        <h3 class="text-xl font-bold">자문단 및 파트너 등록 (Advisors & Partners)</h3>
+                        <p class="mt-4">각 분야의 전문성으로 ETIV의 성장에 기여해주실 자문위원과 공동 연구 및 사업을 희망하는 파트너 기관의 지원을 기다립니다.</p>
+                        <button class="mt-6 bg-white text-blue-800 font-semibold py-2 px-6 rounded-md hover:bg-slate-100">지원서 제출하기</button>
+                    </div>
+                </div>
+            </section>
+
+             <section id="news" class="section py-16 sm:py-24 bg-white">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                     <div class="text-center">
+                        <h2 class="text-base font-semibold text-blue-700 tracking-wide uppercase">News & Resources</h2>
+                        <p class="mt-2 text-3xl font-extrabold text-slate-900 tracking-tight sm:text-4xl">ETIV의 최신 소식과 인사이트</p>
+                        <p class="mt-4 max-w-2xl mx-auto text-xl text-slate-500">
+                            언론보도, 연구자료, 블로그 등 ETIV가 만들어가는 AI 시대의 담론을 확인하고, AI가 제공하는 핵심 요약을 경험해보세요.
+                        </p>
+                    </div>
+                    <div class="mt-12 max-w-3xl mx-auto flex justify-center space-x-2 sm:space-x-4">
+                        <button class="news-filter-btn active-filter px-3 py-1 sm:px-4 sm:py-2 text-sm sm:text-base font-medium rounded-full" data-filter="All">All</button>
+                        <button class="news-filter-btn px-3 py-1 sm:px-4 sm:py-2 text-sm sm:text-base font-medium rounded-full" data-filter="언론보도">언론보도</button>
+                        <button class="news-filter-btn px-3 py-1 sm:px-4 sm:py-2 text-sm sm:text-base font-medium rounded-full" data-filter="블로그">블로그</button>
+                        <button class="news-filter-btn px-3 py-1 sm:px-4 sm:py-2 text-sm sm:text-base font-medium rounded-full" data-filter="연구자료">연구자료</button>
+                        <button class="news-filter-btn px-3 py-1 sm:px-4 sm:py-2 text-sm sm:text-base font-medium rounded-full" data-filter="YouTube">YouTube</button>
+                    </div>
+                    <div id="news-grid" class="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+                    </div>
+                     <div class="mt-16 max-w-2xl mx-auto bg-slate-50 p-8 rounded-lg text-center">
+                        <h3 class="text-xl font-bold text-slate-800">뉴스레터 구독</h3>
+                        <p class="mt-2 text-slate-600">ETIV AI 연구소의 최신 소식과 깊이 있는 인사이트를 가장 먼저 받아보세요.</p>
+                        <form class="mt-6 flex flex-col sm:flex-row gap-2">
+                            <input type="email" placeholder="이메일 주소를 입력하세요" class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+                            <button type="submit" class="w-full sm:w-auto bg-blue-800 text-white font-semibold py-2 px-6 rounded-md hover:bg-blue-900">구독하기</button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+             <section id="contact" class="section py-16 sm:py-24">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                     <div class="text-center">
+                        <h2 class="text-base font-semibold text-blue-700 tracking-wide uppercase">Contact Us</h2>
+                        <p class="mt-2 text-3xl font-extrabold text-slate-900 tracking-tight sm:text-4xl">Get in Touch</p>
+                         <p class="mt-4 max-w-2xl mx-auto text-xl text-slate-500">
+                            ETIV는 다양한 협력의 기회에 열려있습니다. 궁금한 점이 있다면 언제든지 문의해주세요.
+                        </p>
+                    </div>
+                    <div class="mt-20 max-w-lg mx-auto bg-white p-8 sm:p-10 rounded-lg shadow-xl">
+                        <form action="#" method="POST" class="space-y-6">
+                            <div>
+                                <label for="contact-type" class="block text-sm font-medium text-slate-700">문의 유형</label>
+                                <select id="contact-type" name="contact-type" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-slate-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
+                                    <option>일반 문의</option>
+                                    <option>투자 문의</option>
+                                    <option>언론 문의</option>
+                                    <option>협력 제안</option>
+                                </select>
+                            </div>
+                             <div>
+                                <label for="name" class="block text-sm font-medium text-slate-700">이름</label>
+                                <input type="text" name="name" id="name" class="mt-1 block w-full shadow-sm sm:text-sm border-slate-300 rounded-md">
+                            </div>
+                             <div>
+                                <label for="email" class="block text-sm font-medium text-slate-700">이메일</label>
+                                <input type="email" name="email" id="email" class="mt-1 block w-full shadow-sm sm:text-sm border-slate-300 rounded-md">
+                            </div>
+                             <div>
+                                <label for="message" class="block text-sm font-medium text-slate-700">문의 내용</label>
+                                <textarea id="message" name="message" rows="4" class="mt-1 block w-full shadow-sm sm:text-sm border-slate-300 rounded-md"></textarea>
+                            </div>
+                            <div class="flex items-center">
+                                <input id="agree" name="agree" type="checkbox" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-slate-300 rounded">
+                                <label for="agree" class="ml-2 block text-sm text-slate-900">개인정보 수집 및 이용에 동의합니다.</label>
+                            </div>
+                            <div>
+                                <button type="submit" class="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-800 hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                    보내기
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="bg-slate-800 text-white">
+            <div class="container mx-auto py-8 px-4 sm:px-6 lg:px-8 text-center text-sm text-slate-300">
+                <p>에티브 AI 연구소 (ETIV AI Institute)</p>
+                <p class="mt-2">대표자: 이용승 | 법률자문 및 고문: 신인규 | 사업자등록번호: 123-45-67890</p>
+                <p class="mt-1">주소: 경기도 용인시 수지구 만현로 107</p>
+                <div class="mt-4 flex justify-center space-x-4">
+                    <a href="#" class="hover:text-white">개인정보처리방침</a>
+                    <a href="#" class="hover:text-white">서비스 이용약관</a>
+                    <a href="#" class="hover:text-white">정관(요약)</a>
+                </div>
+                 <p class="mt-6 text-xs text-slate-400">Copyright &copy; 2025 ETIV AI Institute. All Rights Reserved.</p>
+            </div>
+        </footer>
+
+        <!-- AI Analysis Modal -->
+        <div id="ai-modal" class="modal fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4 hidden">
+            <div class="bg-white rounded-lg shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+                <div class="p-6 border-b border-slate-200 flex justify-between items-center sticky top-0 bg-white">
+                    <h3 id="modal-title" class="text-xl font-bold text-slate-800">✨ AI 사업 모델 분석</h3>
+                    <button id="modal-close-btn" class="text-slate-500 hover:text-slate-800">&times;</button>
+                </div>
+                <div id="modal-content" class="p-6 space-y-4">
+                    <!-- AI content will be injected here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            
+            const projectsData = [
+                {
+                    id: 'prj-healthcare',
+                    title: 'AI 헬스케어 규제준수 플랫폼',
+                    description: '디지털 헬스케어 기업이 복잡한 의료 데이터 규제(HIPAA, GDPR 등)를 손쉽게 준수하고 제품 개발에 집중하도록 돕는 Compliance-as-a-Service 솔루션입니다.',
+                    status: 'Seed',
+                    partners: 'OO대학병원, XX파트너스',
+                    chartData: { labels: ['달성', '목표'], values: [60, 40] }
+                },
+                {
+                    id: 'prj-legal',
+                    title: 'AI 기반 법률 리스크 관리 SaaS',
+                    description: '기업의 계약서, 법률문서 등을 AI로 분석하여 잠재적 법률 리스크를 사전에 식별하고 대응 방안을 제시하는 B2B SaaS입니다.',
+                    status: 'Pre-Seed',
+                    partners: '법무법인 OO',
+                    chartData: { labels: ['달성', '목표'], values: [30, 70] }
+                },
+                {
+                    id: 'prj-rag',
+                    title: 'AI 정책 연구를 위한 RAG 툴체인',
+                    description: '방대한 법률, 논문, 보고서 데이터를 학습한 RAG 기술을 활용하여 정책 연구자들이 신뢰할 수 있는 보고서를 신속하게 작성하도록 지원하는 전문 툴체인입니다.',
+                    status: 'R&D',
+                    partners: 'ETIV AI Institute 자체 개발',
+                    chartData: { labels: ['달성', '목표'], values: [85, 15] }
+                }
+            ];
+
+            const newsData = [
+                { id: 'news-1', category: '언론보도', title: 'ETIV AI 연구소, AI 기반 헬스케어 규제 해결사로 나서', source: 'OO일보' },
+                { id: 'news-2', category: '블로그', title: '[인사이트] 생성형 AI 시대, 법률 시장의 5가지 변화', source: 'ETIV Blog' },
+                { id: 'news-3', category: '연구자료', title: 'AI 정책 수립을 위한 RAG 기술 활용 백서', source: 'ETIV Research' },
+                { id: 'news-4', category: 'YouTube', title: '변새와 의새 Ep. 15 - AI 투자의 미래', source: 'YouTube Channel' },
+                { id: 'news-5', category: '언론보도', title: 'ETIV, AI 스타트업 인큐베이팅 프로그램 공개', source: 'XX경제' },
+                { id: 'news-6', category: '블로그', title: 'Human-Centric AI란 무엇인가?', source: 'ETIV Blog' },
+            ];
+            
+            // --- Navigation and Basic UI ---
+            const sections = document.querySelectorAll('.section');
+            const navLinks = document.querySelectorAll('.nav-trigger');
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            function showSection(id) {
+                const targetId = id.startsWith('#') ? id.substring(1) : id;
+                sections.forEach(section => {
+                    section.classList.toggle('active', section.id === targetId);
+                });
+                updateActiveNav(targetId);
+                window.scrollTo(0, 0);
+            }
+
+            function updateActiveNav(targetId) {
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.classList.toggle('active', link.getAttribute('href') === `#${targetId}`);
+                });
+            }
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = link.getAttribute('href');
+                    showSection(targetId);
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                });
+            });
+
+            mobileMenuButton.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+            
+            const initialSection = window.location.hash || '#home';
+            showSection(initialSection);
+            
+            // --- Gemini API Integration ---
+            const aiModal = document.getElementById('ai-modal');
+            const modalTitle = document.getElementById('modal-title');
+            const modalContent = document.getElementById('modal-content');
+            const modalCloseBtn = document.getElementById('modal-close-btn');
+
+            modalCloseBtn.addEventListener('click', () => aiModal.classList.add('hidden'));
+            aiModal.addEventListener('click', (e) => {
+                if (e.target === aiModal) {
+                    aiModal.classList.add('hidden');
+                }
+            });
+
+            function showLoadingInModal(title) {
+                modalTitle.textContent = title;
+                modalContent.innerHTML = `
+                    <div class="flex justify-center items-center py-10">
+                        <div class="spinner w-12 h-12 rounded-full border-4 border-slate-200"></div>
+                        <p class="ml-4 text-slate-600">AI가 분석 중입니다. 잠시만 기다려주세요...</p>
+                    </div>
+                `;
+                aiModal.classList.remove('hidden');
+            }
+            
+            async function callGeminiAPI(prompt) {
+                const apiKey = "AIzaSyDNdLLgXjIfjEMU9qc2jPAdXhXqAsoS3jU"; 
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+                const payload = { contents: [{ role: "user", parts: [{ text: prompt }] }] };
+
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (!response.ok) throw new Error(`API Error: ${response.status}`);
+                    
+                    const result = await response.json();
+
+                    if (result.candidates?.[0]?.content?.parts?.[0]?.text) {
+                        return result.candidates[0].content.parts[0].text;
+                    } else {
+                        throw new Error("Invalid API response structure.");
+                    }
+                } catch (error) {
+                    console.error('Gemini API call failed:', error);
+                    return "AI 분석 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.";
+                }
+            }
+            
+            function formatAIResponse(text) {
+                return text
+                    .replace(/\*\*(.*?)\*\*/g, '<strong class="text-slate-800">$1</strong>') // Bold
+                    .replace(/\* (.*?)(?=\n\*|\n\n|$)/g, '<li class="ml-5 list-disc">$1</li>') // List items
+                    .replace(/(<\/li>)+/g, '</li>') // Clean up multiple closing tags
+                    .replace(/^(?!<li|<\/ul>)(.*?)(\n|$)/gm, '<p>$1</p>') // Wrap non-list lines in <p>
+                    .replace(/<\/li><p>/g, '</li></ul><p>') // Close list before new paragraph
+                    .replace(/<p><li/g, '<ul><li') // Start list
+                    .replace(/(<\/li>)(?!<li)/g, '$1</ul>'); // End list at the end
+            }
+
+
+            // --- Projects Section Logic ---
+            function renderProjects() {
+                const grid = document.getElementById('projects-grid');
+                grid.innerHTML = '';
+                projectsData.forEach((project, index) => {
+                    const card = document.createElement('div');
+                    card.className = 'bg-white p-8 rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 flex flex-col';
+                    card.innerHTML = `
+                        <div>
+                            <span class="text-sm font-semibold text-white bg-blue-700 py-1 px-3 rounded-full">${project.status}</span>
+                            <h3 class="mt-4 text-xl font-bold text-slate-900">${project.title}</h3>
+                            <p class="mt-2 text-base text-slate-600 flex-grow">${project.description}</p>
+                        </div>
+                        <div class="mt-6">
+                            <div class="chart-container h-48 sm:h-56 mx-auto">
+                                <canvas id="project-chart-${index}"></canvas>
+                            </div>
+                            <p class="mt-4 text-sm text-slate-500"><strong>참여기관:</strong> ${project.partners}</p>
+                             <div class="flex flex-col sm:flex-row gap-2 mt-4">
+                                <button class="w-full text-blue-800 font-semibold py-2 px-4 rounded-md border border-blue-200 hover:bg-blue-50">[PDF] 보고서</button>
+                                <button id="analyze-btn-${project.id}" class="w-full bg-blue-800 text-white font-semibold py-2 px-4 rounded-md hover:bg-blue-900">✨ AI 사업 모델 분석</button>
+                             </div>
+                        </div>
+                    `;
+                    grid.appendChild(card);
+                    createProjectChart(index, project.chartData);
+
+                    document.getElementById(`analyze-btn-${project.id}`).addEventListener('click', async () => {
+                        showLoadingInModal(`✨ ${project.title} 분석`);
+                        const prompt = `다음 AI 사업 모델에 대한 SWOT 분석(강점, 약점, 기회, 위협)을 전문가 수준으로 작성해줘. 각 항목은 명확하게 구분하고, 구체적인 예시를 포함해줘.\n\n- 사업 모델: ${project.title}\n- 설명: ${project.description}`;
+                        const result = await callGeminiAPI(prompt);
+                        modalContent.innerHTML = formatAIResponse(result);
+                    });
+                });
+            }
+
+            function createProjectChart(index, data) {
+                 const ctx = document.getElementById(`project-chart-${index}`).getContext('2d');
+                 new Chart(ctx, { type: 'doughnut', data: { labels: data.labels, datasets: [{ data: data.values, backgroundColor: ['#1d4ed8', '#dbeafe'], borderColor: '#ffffff', borderWidth: 2 }] }, options: { responsive: true, maintainAspectRatio: false, cutout: '70%', plugins: { legend: { display: false }, tooltip: { enabled: true, callbacks: { label: (c) => `${c.label}: ${c.raw}%` } } } } });
+            }
+            renderProjects();
+            
+            // --- News Section Logic ---
+            const newsGrid = document.getElementById('news-grid');
+            const filterBtns = document.querySelectorAll('.news-filter-btn');
+
+            function renderNews(filter = 'All') {
+                newsGrid.innerHTML = '';
+                const filteredNews = filter === 'All' ? newsData : newsData.filter(item => item.category === filter);
+
+                filteredNews.forEach(item => {
+                    const card = document.createElement('div');
+                    card.className = 'news-item bg-white rounded-lg shadow-md overflow-hidden transition-shadow duration-300 flex flex-col';
+                    card.innerHTML = `
+                        <div class="p-6 flex-grow">
+                            <span class="text-xs font-semibold uppercase tracking-wider text-blue-700">${item.category}</span>
+                            <h4 class="mt-2 font-bold text-lg text-slate-800">${item.title}</h4>
+                            <p class="mt-3 text-sm text-slate-500">출처: ${item.source}</p>
+                            <div id="summary-container-${item.id}" class="mt-4 text-sm bg-slate-50 p-3 rounded-md border border-slate-200 hidden"></div>
+                        </div>
+                        <div class="p-4 bg-slate-50 border-t">
+                            <button id="summarize-btn-${item.id}" class="w-full text-center text-sm font-semibold text-blue-700 hover:text-blue-900">✨ AI 한 줄 요약 보기</button>
+                        </div>
+                    `;
+                    newsGrid.appendChild(card);
+                    
+                    const summarizeBtn = document.getElementById(`summarize-btn-${item.id}`);
+                    const summaryContainer = document.getElementById(`summary-container-${item.id}`);
+
+                    summarizeBtn.addEventListener('click', async function() {
+                        this.textContent = '요약 중...';
+                        this.disabled = true;
+
+                        const prompt = `다음 기사 제목과 출처를 바탕으로, 기사의 핵심 내용을 한 문장으로 요약해줘: \n\n- 제목: ${item.title}\n- 출처: ${item.source}`;
+                        const summary = await callGeminiAPI(prompt);
+                        
+                        summaryContainer.innerHTML = `<strong class="text-blue-800">AI 요약:</strong> ${summary}`;
+                        summaryContainer.classList.remove('hidden');
+                        this.parentElement.classList.add('hidden'); // Hide the button's container
+                    });
+                });
+            }
+
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    filterBtns.forEach(b => b.classList.remove('active-filter'));
+                    btn.classList.add('active-filter');
+                    renderNews(btn.dataset.filter);
+                });
+            });
+            
+            const activeFilterStyle = document.createElement('style');
+            activeFilterStyle.innerHTML = `.active-filter{background-color:#1e40af !important;color:white !important}.news-filter-btn{background-color:#e2e8f0;color:#334155;transition:background-color .2s,color .2s}.news-filter-btn:hover{background-color:#cbd5e1}`;
+            document.head.appendChild(activeFilterStyle);
+
+            renderNews();
+        });
+    </script>
+</body>
+</html>
