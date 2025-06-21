@@ -85,27 +85,30 @@
             background-size: 2rem 2rem;
             mask-image: linear-gradient(to top, transparent 0%, black 20%);
         }
+        .legal-content h3 {
+            font-size: 1.25rem; /* text-xl */
+            font-weight: 700; /* font-bold */
+            margin-top: 2rem; /* mt-8 */
+            margin-bottom: 0.5rem; /* mb-2 */
+            color: #1e293b; /* text-slate-800 */
+        }
+        .legal-content p, .legal-content li {
+            margin-bottom: 1rem; /* mb-4 */
+            line-height: 1.75;
+        }
+        .legal-content ol {
+            list-style-type: decimal;
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .legal-content ul {
+            list-style-type: disc;
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
     </style>
 </head>
 <body class="text-slate-700">
-
-    <!-- 
-        Chosen Palette: Tech Professionalism (Slate, Deep Blue, Silver) with Burgundy Accent
-        - Background: Slate 50 (#f8fafc)
-        - Text: Slate 700/800 (#334155, #1e293b)
-        - Primary/Accent: Blue 800/900 (#1e40af, #1e3a8a)
-        - Secondary/Highlight: Slate 200 (#e2e8f0)
-        - Accent: Burgundy (#800020)
-    -->
-    <!-- 
-        Application Structure Plan: A single-page application (SPA) model was chosen to provide a fluid, uninterrupted user experience. The main change is in the Home section, which is redesigned to be more impactful. It now uses a two-column layout on desktops for a modern, asymmetrical look, with a large, bold slogan and a new mission statement on the left, and a subtle, abstract background pattern on the right to visually represent technology and data without being distracting. This structure aims to immediately convey professionalism and a forward-thinking vision. The burgundy accent color is used sparingly on a primary CTA to draw attention effectively.
-    -->
-    <!-- 
-        Visualization & Content Choices:
-        - Report Info: Main Slogan & Mission -> Goal: Inform/Impact -> Viz/Presentation Method: Dramatically enlarged font size for the slogan in a two-column layout. A new, more descriptive mission statement is added for context. -> Interaction: Static text, but visually dynamic due to layout and typography. -> Justification: The larger text and focused layout immediately grab user attention and establish the institute's core identity with more authority and style. The minimal burgundy accent on the button creates a clear primary action.
-        - Report Info: Technology/Data concept -> Goal: Set a tone -> Viz/Presentation Method: A subtle, non-intrusive background dot pattern created with CSS radial gradients. -> Interaction: None, purely atmospheric. -> Justification: It adds a layer of visual sophistication and hints at the "data/AI" theme without cluttering the interface or slowing down the page, reinforcing the modern, minimalist aesthetic.
-    -->
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
 
     <div id="app" class="antialiased flex flex-col min-h-screen">
         <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
@@ -210,26 +213,22 @@
                         <div class="mt-12 grid gap-12 lg:grid-cols-2 lg:gap-16">
                             <div class="flex flex-col sm:flex-row items-center text-center sm:text-left">
                                 <div class="flex-shrink-0">
-                                    <div class="w-32 h-32 rounded-full bg-slate-200 mx-auto flex items-center justify-center">
-                                        <span class="text-slate-500">프로필</span>
-                                    </div>
+                                    <img class="w-32 h-32 rounded-full mx-auto object-cover" src="https://placehold.co/256x256/E2E8F0/475569?text=Y.S.Lee" alt="이용승 대표 프로필 사진">
                                 </div>
                                 <div class="mt-4 sm:mt-0 sm:ml-6">
-                                    <h4 class="text-lg font-bold text-slate-900">전문의 이용승</h4>
-                                    <p class="text-sm font-medium text-blue-700">CEO, Head of AI & Healthcare</p>
-                                    <p class="mt-2 text-base text-slate-600">"데이터 기반의 정밀한 진단과 맞춤형 헬스케어 솔루션으로 인류의 건강한 미래를 열겠습니다."</p>
+                                    <h4 class="text-lg font-bold text-slate-900">이용승 | CEO</h4>
+                                    <p class="text-sm font-medium text-blue-700">Head of AI & Healthcare</p>
+                                    <p class="mt-2 text-base text-slate-600">가정의학과 전문의이자 AI 융합 전문가. 노화 방지 및 스포츠 의학 분야의 깊은 임상 경험을 바탕으로, AI 기술을 통해 만성질환자의 운동 순응도를 높이고 삶의 질을 개선하는 솔루션을 연구합니다. Korea Medical Pilates Academy(KMPA)의 설립자로서 데이터 기반의 맞춤형 헬스케어 패러다임을 선도하고 있습니다.</p>
                                 </div>
                             </div>
                              <div class="flex flex-col sm:flex-row items-center text-center sm:text-left">
                                 <div class="flex-shrink-0">
-                                    <div class="w-32 h-32 rounded-full bg-slate-200 mx-auto flex items-center justify-center">
-                                        <span class="text-slate-500">프로필</span>
-                                    </div>
+                                     <img class="w-32 h-32 rounded-full mx-auto object-cover" src="https://placehold.co/256x256/E2E8F0/475569?text=I.K.Shin" alt="신인규 법률고문 프로필 사진">
                                 </div>
                                 <div class="mt-4 sm:mt-0 sm:ml-6">
-                                    <h4 class="text-lg font-bold text-slate-900">변호사 신인규</h4>
-                                    <p class="text-sm font-medium text-blue-700">CSO, Head of Policy & Legal</p>
-                                    <p class="mt-2 text-base text-slate-600">"AI 시대에 걸맞은 법률과 정책을 디자인하여, 기술이 공정하게 활용되고 사회적 신뢰를 얻도록 돕겠습니다."</p>
+                                    <h4 class="text-lg font-bold text-slate-900">신인규 | 법률고문</h4>
+                                    <p class="text-sm font-medium text-blue-700">Head of Policy & Legal</p>
+                                    <p class="mt-2 text-base text-slate-600">기술과 사회의 교차점에서 발생하는 법률 및 정책 이슈를 전문으로 다루는 IT 전문 변호사입니다. AI 윤리, 데이터 프라이버시, 기술 규제 분야에 대한 깊은 통찰을 바탕으로, ETIV의 연구와 비즈니스가 사회적 신뢰 속에서 지속가능하게 성장할 수 있도록 법률적 기틀을 마련합니다.</p>
                                 </div>
                             </div>
                         </div>
@@ -327,7 +326,7 @@
                              <div class="flex items-center justify-center h-12 w-12 rounded-md bg-blue-800 text-white">
                                 <span class="text-2xl">📺</span>
                             </div>
-                            <h3 class="mt-6 text-xl font-bold text-slate-900">AI-based New Media & Social Flatform</h3>
+                            <h3 class="mt-6 text-xl font-bold text-slate-900">AI-based Media</h4>
                             <p class="mt-2 text-base text-slate-600">세상의 변화를 이끄는 의사와 변호사의 AI 인사이트. 복잡한 AI 이슈를 대중의 눈높이에서 풀어내며 사회적 담론을 형성하고 공론화를 주도합니다.</p>
                         </div>
                     </div>
@@ -451,7 +450,7 @@
                     </div>
                 </div>
             </section>
-
+            
             <!-- Legal Sections Start Here -->
             <section id="privacy" class="section py-16 sm:py-24 bg-white">
                 <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl legal-content">
@@ -515,51 +514,99 @@
             <section id="terms" class="section py-16 sm:py-24 bg-white">
                 <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl legal-content">
                     <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight">서비스 이용약관</h2>
-                    <p class="mt-4 text-slate-500">시행일: 2025년 6월 21일</p>
+                    <p class="mt-4 text-slate-500">시행일: 2025년 6월 22일</p>
 
                      <h3>제1조 (목적)</h3>
-                     <p>본 약관은 에티브 AI 연구소(이하 '연구소')가 제공하는 웹사이트 및 관련 서비스(이하 '서비스')의 이용과 관련하여 연구소와 회원 간의 권리, 의무 및 책임사항, 기타 필요한 사항을 규정함을 목적으로 합니다.</p>
+                     <p>본 약관은 에티브 AI 연구소(이하 '연구소')가 제공하는 웹사이트(etivai.io) 및 관련 제반 서비스(이하 '서비스')의 이용과 관련하여 연구소와 이용자의 권리, 의무 및 책임사항, 기타 필요한 사항을 규정함을 목적으로 합니다.</p>
 
                      <h3>제2조 (정의)</h3>
-                     <p>본 약관에서 사용하는 용어의 정의는 다음과 같습니다.</p>
                      <ol>
-                        <li>'서비스'라 함은 연구소가 제공하는 웹사이트 및 제반 서비스를 의미합니다.</li>
-                        <li>'회원'이라 함은 연구소의 '서비스'에 접속하여 본 약관에 따라 연구소와 이용계약을 체결하고 연구소가 제공하는 '서비스'를 이용하는 고객을 말합니다.</li>
+                        <li>'서비스'라 함은 연구소가 제공하는 웹사이트 및 AI 분석, 콘텐츠 제공 등 모든 관련 서비스를 의미합니다.</li>
+                        <li>'이용자'라 함은 연구소의 '서비스'에 접속하여 본 약관에 따라 연구소가 제공하는 '서비스'를 이용하는 모든 방문자를 말합니다.</li>
+                        <li>'게시물'이라 함은 이용자가 '서비스'를 이용함에 있어 '서비스' 상에 게시한 부호·문자·음성·화상·동영상 등의 정보 형태의 글, 사진, 동영상 및 각종 파일과 링크 등을 의미합니다.</li>
                      </ol>
+
+                    <h3>제3조 (약관의 게시와 개정)</h3>
+                    <p>① 연구소는 본 약관의 내용을 이용자가 쉽게 알 수 있도록 서비스 초기 화면에 게시합니다.</p>
+                    <p>② 연구소는 「약관의 규제에 관한 법률」, 「정보통신망 이용촉진 및 정보보호 등에 관한 법률(이하 '정보통신망법')」 등 관련법을 위배하지 않는 범위에서 본 약관을 개정할 수 있습니다.</p>
+                    <p>③ 연구소가 약관을 개정할 경우에는 적용일자 및 개정사유를 명시하여 현행약관과 함께 제1항의 방식에 따라 그 개정약관의 적용일자 7일 전부터 적용일자 전일까지 공지합니다.</p>
+                    
+                    <h3>제4조 (서비스의 내용 및 저작권)</h3>
+                    <p>① 연구소는 연구, 비즈니스, 미디어와 관련된 다양한 정보 및 분석 콘텐츠를 제공합니다.</p>
+                    <p>② 서비스 내 AI 분석 기능이 제공하는 정보는 참고 자료이며, 법률적, 의학적, 재정적 조언을 대체할 수 없습니다. 이용자는 해당 정보를 자신의 판단과 책임 하에 활용해야 하며, 연구소는 이로 인해 발생하는 어떠한 결과에 대해서도 책임을 지지 않습니다.</p>
+                    <p>③ 연구소가 작성한 모든 게시물 및 콘텐츠에 대한 저작권은 연구소에 귀속됩니다. 이용자는 연구소의 사전 동의 없이 이를 영리적 목적으로 복제, 송신, 출판, 배포, 방송 기타 방법에 의하여 이용하거나 제3자에게 이용하게 하여서는 안 됩니다.</p>
+
+                    <h3>제5조 (이용자의 의무)</h3>
+                    <p>이용자는 다음 행위를 하여서는 안 됩니다.</p>
+                    <ol>
+                        <li>허위 내용의 등록</li>
+                        <li>타인의 정보 도용</li>
+                        <li>연구소가 게시한 정보의 변경</li>
+                        <li>연구소의 운영을 방해할 목적으로 서비스에 과부하를 유발하는 행위</li>
+                        <li>기타 불법적이거나 부당한 행위</li>
+                    </ol>
+
+                    <h3>제6조 (책임 제한)</h3>
+                    <p>① 연구소는 천재지변 또는 이에 준하는 불가항력으로 인하여 서비스를 제공할 수 없는 경우에는 서비스 제공에 관한 책임이 면제됩니다.</p>
+                    <p>② 연구소는 이용자의 귀책사유로 인한 서비스 이용의 장애에 대하여는 책임을 지지 않습니다.</p>
+
+                    <h3>제7조 (준거법 및 재판관할)</h3>
+                    <p>① 연구소와 이용자 간에 발생한 분쟁에 관하여는 대한민국법을 준거법으로 합니다.</p>
+                    <p>② 서비스 이용과 관련하여 발생한 분쟁에 관한 소송은 민사소송법상의 관할법원에 제소합니다.</p>
                 </div>
             </section>
 
             <section id="articles" class="section py-16 sm:py-24 bg-white">
                 <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl legal-content">
                     <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight">정관 (요약)</h2>
-                    <p class="mt-4 text-slate-500">본 문서는 에티브 AI 연구소 정관의 주요 내용을 요약한 것입니다.</p>
+                    <p class="mt-4 text-slate-500">본 문서는 에티브 AI 연구소 정관의 주요 내용을 발췌한 것입니다. 전체 정관은 별도 문의 시 열람 가능합니다.</p>
 
                     <h3>제1장 총칙</h3>
-                    <p><b>제1조 (명칭)</b> 본 연구소는 에티브 AI 연구소(ETIV AI Institute)라 칭한다.</p>
-                    <p><b>제2조 (목적)</b> 본 연구소는 인공지능(AI) 기술을 활용하여 공공의 이익을 증진하고, 공정한 시장 질서 확립에 기여하며, 관련 분야의 연구 개발 및 인재 양성을 통해 사회 발전에 이바지함을 목적으로 한다.</p>
+                    <p><b>제1조 (명칭)</b> 본 법인은 "사단법인 에티브 에이아이 연구소"(영문명 ETIV AI Institute)라 칭한다. (이하 ‘본 법인’이라 한다)</p>
+                    <p><b>제2조 (목적)</b> 본 법인은 인공지능(AI) 기술을 활용하여 공공 정책, 헬스케어, 금융 시장의 비효율을 개선하고 사회적 난제를 해결하기 위한 학술 및 응용 연구를 수행하며, 그 성과를 사회에 공유하여 공익 증진에 이바지함을 목적으로 한다.</p>
+                    <p><b>제3조 (사무소의 소재지)</b> 본 법인의 주사무소는 경기도 용인시에 두며, 필요에 따라 이사회의 결의로 국내외에 분사무소(지부)를 둘 수 있다.</p>
 
                     <h3>제2장 사업</h3>
-                    <p><b>제3조 (사업)</b> 본 연구소는 제2조의 목적을 달성하기 위하여 다음 각 호의 사업을 수행한다.</p>
+                    <p><b>제4조 (사업)</b> 본 법인은 제2조의 목적을 달성하기 위하여 다음 각 호의 목적사업을 수행한다.</p>
                     <ol>
-                        <li>AI 기반 정책 연구 및 개발 사업</li>
-                        <li>AI 기술을 활용한 비즈니스 모델 인큐베이팅 및 상업화 지원 사업</li>
-                        <li>AI 관련 미디어 콘텐츠 제작 및 확산을 통한 대중 인식 개선 사업</li>
-                        <li>기타 본 연구소의 목적 달성에 필요한 부대 사업</li>
+                        <li>AI 기반 정책 대안 연구 및 증거 기반 정책 컨설팅 사업</li>
+                        <li>AI 기술을 활용한 공익적 비즈니스 모델의 인큐베이팅 및 기술 지원 사업</li>
+                        <li>AI 윤리 및 사회적 영향에 관한 연구 및 교육 사업</li>
+                        <li>AI 기술과 사회 발전에 관한 미디어 콘텐츠 제작 및 공론화 사업</li>
+                        <li>국내외 관련 기관과의 공동연구 및 학술교류 사업</li>
+                        <li>기타 본 법인의 목적 달성에 필요한 부대사업 일체</li>
                     </ol>
+                    
+                    <h3>제3장 회원 및 임원</h3>
+                    <p><b>제5조 (회원의 종류 및 자격)</b> 본 법인의 회원은 본 법인의 설립 취지에 찬동하고 소정의 입회신청서를 제출하여 이사회의 승인을 얻은 개인 또는 단체로 하며, 정회원과 후원회원으로 구분한다.</p>
+                    <p><b>제6조 (임원의 종류와 정수)</b> 본 법인은 다음의 임원을 둔다.</p>
+                    <ul>
+                        <li>대표 1인 (이사장 겸직 가능)</li>
+                        <li>이사 5인 이상 15인 이내 (대표 포함)</li>
+                        <li>감사 2인 이내</li>
+                    </ul>
+                    <p><b>제7조 (임원의 임기 및 선임)</b> 임원의 임기는 3년으로 하며 연임할 수 있다. 임원은 총회에서 선출한다.</p>
+                    
+                    <h3>제4장 재산 및 회계</h3>
+                    <p><b>제8조 (재산의 구분)</b> 본 법인의 재산은 기본재산과 보통재산으로 구분한다.</p>
+                    <p><b>제9조 (수입금)</b> 본 법인의 유지 및 운영에 필요한 경비는 회원의 회비, 후원금, 정부 및 공공기관의 보조금, 목적사업으로 인한 수입, 기타 기부금으로 충당한다.</p>
+                    
+                    <h3>부칙</h3>
+                    <p><b>제1조 (시행세칙)</b> 본 정관의 시행에 필요한 세부적인 사항은 이사회에서 정하여 총회의 승인을 얻어야 한다.</p>
+                    <p><b>제2조 (초대 임원)</b> 본 법인의 설립 시 선임된 초대 임원은 본 정관에 의하여 선임된 것으로 본다.</p>
                 </div>
             </section>
-            <!-- Legal Sections End Here -->
         </main>
-        
+
         <footer class="bg-slate-800 text-white">
             <div class="container mx-auto py-8 px-4 sm:px-6 lg:px-8 text-center text-sm text-slate-300">
                 <p>ETIV AI Institute 에티브 에이아이 연구소</p>
-                <p class="mt-2">대표자: 이용승 | 법률자문 및 고문: 신인규 | 사업자등록번호: 123-45-67890</p>
+                <p class="mt-2">대표자: 이용승 | 법률자문 및 고문: 신인규 | 사업자등록번호: 304-XX-XXXXX</p>
                 <p class="mt-1">주소: 경기도 용인시 수지구 만현로 107</p>
                 <div class="mt-4 flex justify-center space-x-4">
-                    <a href="#" class="hover:text-white">개인정보처리방침</a>
-                    <a href="#" class="hover:text-white">서비스 이용약관</a>
-                    <a href="#" class="hover:text-white">정관(요약)</a>
+                    <a href="#privacy" class="nav-trigger hover:text-white">개인정보처리방침</a>
+                    <a href="#terms" class="nav-trigger hover:text-white">서비스 이용약관</a>
+                    <a href="#articles" class="nav-trigger hover:text-white">정관(요약)</a>
                 </div>
                  <p class="mt-6 text-xs text-slate-400">Copyright &copy; 2025 ETIV AI Institute. All Rights Reserved.</p>
             </div>
@@ -589,6 +636,7 @@
                     description: '디지털 헬스케어 기업이 복잡한 의료 데이터 규제(HIPAA, GDPR 등)를 손쉽게 준수하고 제품 개발에 집중하도록 돕는 Compliance-as-a-Service 솔루션입니다.',
                     status: 'Seed',
                     partners: 'OO대학병원, XX파트너스',
+                    pdf_link: '#', // TODO: 실제 PDF 파일 링크로 교체
                     chartData: { labels: ['달성', '목표'], values: [60, 40] }
                 },
                 {
@@ -597,6 +645,7 @@
                     description: '기업의 계약서, 법률문서 등을 AI로 분석하여 잠재적 법률 리스크를 사전에 식별하고 대응 방안을 제시하는 B2B SaaS입니다.',
                     status: 'Pre-Seed',
                     partners: '법무법인 OO',
+                    pdf_link: '#', // TODO: 실제 PDF 파일 링크로 교체
                     chartData: { labels: ['달성', '목표'], values: [30, 70] }
                 },
                 {
@@ -605,6 +654,7 @@
                     description: '방대한 법률, 논문, 보고서 데이터를 학습한 RAG 기술을 활용하여 정책 연구자들이 신뢰할 수 있는 보고서를 신속하게 작성하도록 지원하는 전문 툴체인입니다.',
                     status: 'R&D',
                     partners: 'ETIV AI Institute 자체 개발',
+                    pdf_link: '#', // TODO: 실제 PDF 파일 링크로 교체
                     chartData: { labels: ['달성', '목표'], values: [85, 15] }
                 }
             ];
@@ -618,7 +668,6 @@
                 { id: 'news-6', category: '블로그', title: 'Human-Centric AI란 무엇인가?', source: 'ETIV Blog' },
             ];
             
-            // --- Navigation and Basic UI ---
             const sections = document.querySelectorAll('.section');
             const navLinks = document.querySelectorAll('.nav-trigger');
             const mobileMenuButton = document.getElementById('mobile-menu-button');
@@ -655,70 +704,52 @@
             const initialSection = window.location.hash || '#home';
             showSection(initialSection);
             
-            // --- Gemini API Integration ---
-            const aiModal = document.getElementById('ai-modal');
-            const modalTitle = document.getElementById('modal-title');
-            const modalContent = document.getElementById('modal-content');
-            const modalCloseBtn = document.getElementById('modal-close-btn');
-
-            modalCloseBtn.addEventListener('click', () => aiModal.classList.add('hidden'));
-            aiModal.addEventListener('click', (e) => {
-                if (e.target === aiModal) {
-                    aiModal.classList.add('hidden');
-                }
-            });
-
-            function showLoadingInModal(title) {
-                modalTitle.textContent = title;
-                modalContent.innerHTML = `
-                    <div class="flex justify-center items-center py-10">
-                        <div class="spinner w-12 h-12 rounded-full border-4 border-slate-200"></div>
-                        <p class="ml-4 text-slate-600">AI가 분석 중입니다. 잠시만 기다려주세요...</p>
-                    </div>
-                `;
-                aiModal.classList.remove('hidden');
-            }
-            
             async function callGeminiAPI(prompt) {
                 const proxyUrl = '/.netlify/functions/gemini';
-            
                 try {
                     const response = await fetch(proxyUrl, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ prompt: prompt }) // 프롬프트를 담아 요청
+                        body: JSON.stringify({ prompt: prompt })
                     });
-            
-                    if (!response.ok) {
-                        throw new Error(`API 요청 실패: ${response.status}`);
-                    }
-                    
+                    if (!response.ok) throw new Error(`API 요청 실패: ${response.status}`);
                     const result = await response.json();
-            
-                    if (result.text) {
-                        return result.text;
-                    } else {
-                        throw new Error("잘못된 API 응답입니다.");
-                    }
+                    if (result.text) return result.text;
+                    throw new Error("잘못된 API 응답입니다.");
                 } catch (error) {
                     console.error('Gemini API 호출에 실패했습니다:', error);
                     return "AI 분석 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.";
                 }
             }
             
-            function formatAIResponse(text) {
-                return text
-                    .replace(/\*\*(.*?)\*\*/g, '<strong class="text-slate-800">$1</strong>') // Bold
-                    .replace(/\* (.*?)(?=\n\*|\n\n|$)/g, '<li class="ml-5 list-disc">$1</li>') // List items
-                    .replace(/(<\/li>)+/g, '</li>') // Clean up multiple closing tags
-                    .replace(/^(?!<li|<\/ul>)(.*?)(\n|$)/gm, '<p>$1</p>') // Wrap non-list lines in <p>
-                    .replace(/<\/li><p>/g, '</li></ul><p>') // Close list before new paragraph
-                    .replace(/<p><li/g, '<ul><li') // Start list
-                    .replace(/(<\/li>)(?!<li)/g, '$1</ul>'); // End list at the end
+            const aiModal = document.getElementById('ai-modal');
+            if (aiModal) {
+                const modalTitle = document.getElementById('modal-title');
+                const modalContent = document.getElementById('modal-content');
+                const modalCloseBtn = document.getElementById('modal-close-btn');
+
+                modalCloseBtn.addEventListener('click', () => aiModal.classList.add('hidden'));
+                aiModal.addEventListener('click', (e) => {
+                    if (e.target === aiModal) {
+                        aiModal.classList.add('hidden');
+                    }
+                });
+
+                window.showLoadingInModal = function(title) {
+                    modalTitle.textContent = title;
+                    modalContent.innerHTML = `<div class="flex justify-center items-center py-10"><div class="spinner w-12 h-12 rounded-full border-4 border-slate-200"></div><p class="ml-4 text-slate-600">AI가 분석 중입니다...</p></div>`;
+                    aiModal.classList.remove('hidden');
+                }
+                
+                window.formatAIResponse = function(text) {
+                     return text.replace(/\*\*(.*?)\*\*/g, '<strong class="text-slate-800">$1</strong>').replace(/\* (.*?)(?=\n\*|\n\n|$)/g, '<li class="ml-5 list-disc">$1</li>').replace(/(<\/li>)+/g, '</li>').replace(/^(?!<li|<\/ul>)(.*?)(\n|$)/gm, '<p>$1</p>').replace(/<\/li><p>/g, '</li></ul><p>').replace(/<p><li/g, '<ul><li').replace(/(<\/li>)(?!<li)/g, '$1</ul>');
+                }
+
+                window.updateModalContent = function(content) {
+                    modalContent.innerHTML = content;
+                }
             }
 
-
-            // --- Projects Section Logic ---
             function renderProjects() {
                 const grid = document.getElementById('projects-grid');
                 grid.innerHTML = '';
@@ -737,7 +768,7 @@
                             </div>
                             <p class="mt-4 text-sm text-slate-500"><strong>참여기관:</strong> ${project.partners}</p>
                              <div class="flex flex-col sm:flex-row gap-2 mt-4">
-                                <button class="w-full text-blue-800 font-semibold py-2 px-4 rounded-md border border-blue-200 hover:bg-blue-50">[PDF] 보고서</button>
+                                <a href="${project.pdf_link}" target="_blank" class="w-full text-center text-blue-800 font-semibold py-2 px-4 rounded-md border border-blue-200 hover:bg-blue-50">[PDF] 보고서</a>
                                 <button id="analyze-btn-${project.id}" class="w-full bg-blue-800 text-white font-semibold py-2 px-4 rounded-md hover:bg-blue-900">✨ AI 사업모델 분석</button>
                              </div>
                         </div>
@@ -749,18 +780,18 @@
                         showLoadingInModal(`✨ ${project.title} 분석`);
                         const prompt = `다음 AI 사업 모델에 대한 SWOT 분석(강점, 약점, 기회, 위협)을 전문가 수준으로 작성해줘. 각 항목은 명확하게 구분하고, 구체적인 예시를 포함해줘.\n\n- 사업 모델: ${project.title}\n- 설명: ${project.description}`;
                         const result = await callGeminiAPI(prompt);
-                        modalContent.innerHTML = formatAIResponse(result);
+                        updateModalContent(formatAIResponse(result));
                     });
                 });
             }
 
             function createProjectChart(index, data) {
                  const ctx = document.getElementById(`project-chart-${index}`).getContext('2d');
+                 if(!ctx) return;
                  new Chart(ctx, { type: 'doughnut', data: { labels: data.labels, datasets: [{ data: data.values, backgroundColor: ['#1d4ed8', '#dbeafe'], borderColor: '#ffffff', borderWidth: 2 }] }, options: { responsive: true, maintainAspectRatio: false, cutout: '70%', plugins: { legend: { display: false }, tooltip: { enabled: true, callbacks: { label: (c) => `${c.label}: ${c.raw}%` } } } } });
             }
             renderProjects();
             
-            // --- News Section Logic ---
             const newsGrid = document.getElementById('news-grid');
             const filterBtns = document.querySelectorAll('.news-filter-btn');
 
@@ -796,7 +827,7 @@
                         
                         summaryContainer.innerHTML = `<strong class="text-blue-800">AI 요약:</strong> ${summary}`;
                         summaryContainer.classList.remove('hidden');
-                        this.parentElement.classList.add('hidden'); // Hide the button's container
+                        this.parentElement.classList.add('hidden');
                     });
                 });
             }
