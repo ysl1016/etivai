@@ -582,28 +582,28 @@
             }
             
             async function callGeminiAPI(prompt) {
-                const apiKey = "AIzaSyDNdLLgXjIfjEMU9qc2jPAdXhXqAsoS3jU"; 
-                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-                const payload = { contents: [{ role: "user", parts: [{ text: prompt }] }] };
-
+                const proxyUrl = '/.netlify/functions/gemini';
+            
                 try {
-                    const response = await fetch(apiUrl, {
+                    const response = await fetch(proxyUrl, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
+                        body: JSON.stringify({ prompt: prompt }) // 프롬프트를 담아 요청
                     });
-
-                    if (!response.ok) throw new Error(`API Error: ${response.status}`);
+            
+                    if (!response.ok) {
+                        throw new Error(`API 요청 실패: ${response.status}`);
+                    }
                     
                     const result = await response.json();
-
-                    if (result.candidates?.[0]?.content?.parts?.[0]?.text) {
-                        return result.candidates[0].content.parts[0].text;
+            
+                    if (result.text) {
+                        return result.text;
                     } else {
-                        throw new Error("Invalid API response structure.");
+                        throw new Error("잘못된 API 응답입니다.");
                     }
                 } catch (error) {
-                    console.error('Gemini API call failed:', error);
+                    console.error('Gemini API 호출에 실패했습니다:', error);
                     return "AI 분석 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.";
                 }
             }
